@@ -23,7 +23,7 @@ OverTheWire: [Bandit](https://overthewire.org/wargames/bandit/level1.html)
 ### sed, head
 ```bash
 sed [옵션] '명령' 파일
-sed -n '2' file.txt
+sed -n '2p' file.txt
 sed -n '2,4p` file.txt
 
 head [옵션] 파일
