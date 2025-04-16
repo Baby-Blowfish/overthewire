@@ -1,34 +1,44 @@
-문제 : ssh 접속
-아이디 : bandit0
-비밀번호 : bandit0
-주소 : bandit.labs.overthewire.org
-포트번호 : 2220
+# Bandit Level 0 → Level 1
 
-기본 ssh 접속 포트 설정은 22
-접속 포트 번호를 수정해야함
-기본 접속 포트번호 바꾸려면 /etc/ssh/sshd_config 파일의 Port = 포트번호로 수정
+OverTheWire: [Bandit](https://overthewire.org/wargames/bandit/)
 
-ssh -p 포트번호 사용자@호스트
+---
 
-scp -p 포트번호 사용자@호스트:원격경로 로컬경로
+## 📌 문제 요약
 
-scp -r -p 포트번호 사용자@호스트:원격경로 로컬경로
+- **접속 방식**: SSH
+- **사용자**: `bandit0`
+- **비밀번호**: `bandit0`
+- **호스트 주소**: `bandit.labs.overthewire.org`
+- **포트 번호**: `2220`
+- **목표**: 서버에 접속한 후 `/etc/bandit_pass/bandit0` 파일에서 다음 단계의 비밀번호를 확인
 
-sshpass -p "비밀번호" ssh 사용자@주소
+---
 
-sshpass -p "비밀번호" ssh -p 포트번호 사용자@주소
+## 🧠 학습 내용 요약
+
+### ✅ 1. SSH 포트 변경
+
+기본 포트는 `22`이지만 Bandit 서버는 `2220`번 포트를 사용하므로 아래와 같이 접속해야 함:
+
+```bash
+ssh -p 2220 bandit0@bandit.labs.overthewire.org
+```
+### 2. sshpass를 사용한 자동로그인
+
+```bash
+sudo apt install sshpass
+sshpass -p "bandit0" ssh -p 2220 bandit0@bandit.labs.overthewire.org
+```
+
+### 3.  scp로 원격 파일 복사
+```bash
+scp -P 2220 bandit0@bandit.labs.overthewire.org:/path/to/file ./localdir/
+scp -r -P 2220 bandit0@bandit.labs.overthewire.org:/path/to/dir ./localdir/
+sshpass -p "bandit0" scp -P 2220 bandit0@bandit.labs.overthewire.org:/path/to/file ./localdir/
+```
 
 
-sshpass -p "비밀번호" scp -P 포트번호 사용자@호스트:원격경로 로컬경로
-
-
-
-`-`인 파일 이름 읽기
-touch에서 `touch -`하면 명령어가 옵션으로 생각함
-`--`를 통해서 여기서부터는 옵션 아님이라는 옵션을 줘야함
-`touch -- -`
-아니면 경로로 지정해서 옵션으로 해석되지 않게함
-`cat ./-`
 
 
 
